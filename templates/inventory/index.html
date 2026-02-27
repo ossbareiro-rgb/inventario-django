@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Inventario - Sastrería</title>
+  </head>
+{% extends 'base.html' %}
+
+{% block title %}Inventario - Sastrería{% endblock %}
+
+{% block content %}
+  <h2>Inventario</h2>
+  <p>
+  {% if user.is_authenticated %}
+    Hola, {{ user.username }} — <a href="{% url 'logout' %}">Salir</a>
+  {% else %}
+    <a href="{% url 'login' %}">Entrar</a>
+  {% endif %}
+  </p>
+  <ul class="items-list">
+  {% for item in items %}
+    <li class="item-row">{{ item.item_type.name }} - {{ item.code }} - {{ item.state }}</li>
+  {% empty %}
+    <li>No hay items.</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
+</html>
